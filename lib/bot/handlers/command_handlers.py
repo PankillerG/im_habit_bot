@@ -45,7 +45,7 @@ async def remove(update: Update, context: ContextTypes.DEFAULT_TYPE):
     state_client.state.users_states[user_id].conv_status = ConvStatuses.remove_habits
     logger.info(f'{user_id = }; command = "remove"')
 
-    habits = await state_client.state.users_states[user_id].get_habits()
+    habits = await state_client.state.users_states[user_id].get_habits(actual=False)
     await update.message.reply_text(
         text=text_messages.get_remove_habits(not habits),
         reply_markup=keyboard_messages.get_show_habits(habits),
