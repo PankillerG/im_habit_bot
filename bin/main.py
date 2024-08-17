@@ -1,4 +1,5 @@
 import logging
+import os
 
 from lib import (
     config,
@@ -19,7 +20,7 @@ def main():
 
     state_client = StateClient(config.STATE_FILE)
     BotRunner(
-        token='',
+        token=config.TG_BOT_TOKEN,
         state_client=state_client,
     ).run()
 

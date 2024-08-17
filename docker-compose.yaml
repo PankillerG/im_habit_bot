@@ -1,0 +1,8 @@
+services:
+  im_habit_bot:
+    build: .
+    volumes:
+      - .:/home/im_habit_bot
+    env_file:
+      - tokens.env
+    restart: always
