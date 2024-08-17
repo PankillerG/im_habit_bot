@@ -28,9 +28,11 @@ class HabitState(utils.DefaultState):
         logger.info(f'HabitState has been initialized: {self.to_dict()}')
 
     def _need_to_reset(self):
-        last_reset_timestamp = time_utils.get_beginning_of_day_timestamp(self.last_reset_timestamp)
-        reset_freq_seconds = getattr(time_utils.ResetFreqs, self.reset_freq)
-        return last_reset_timestamp + reset_freq_seconds <= time_utils.get_current_timestamp()
+        return not time_utils.is_equal(
+            timestamp1=self.last_reset_timestamp,
+            timestamp2=time_utils.get_current_timestamp(),
+            datetime_type=self.reset_freq,
+        )
 
     def _reset_done_count(self):
         self.done_count = 0

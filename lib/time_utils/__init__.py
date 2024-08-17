@@ -2,20 +2,21 @@ import datetime
 import time
 
 
-ONE_DAY_SECONDS = 60 * 60 * 24
-ONE_WEEK_SECONDS = ONE_DAY_SECONDS * 7
-
-
-class ResetFreqs:
-    day = ONE_DAY_SECONDS
-    week = ONE_WEEK_SECONDS
-
-
 def get_current_timestamp():
     return int(time.time())
 
 
-def get_beginning_of_day_timestamp(timestamp):
-    date = datetime.date.fromtimestamp(timestamp)
-    dt = datetime.datetime.combine(date, datetime.datetime.min.time())
-    return int(dt.timestamp())
+def is_equal(timestamp1, timestamp2, datetime_type):
+    date1 = datetime.date.fromtimestamp(timestamp1)
+    date2 = datetime.date.fromtimestamp(timestamp2)
+
+    if datetime_type == 'day':
+        return date1.day == date2.day
+
+    elif datetime_type == 'week':
+        return date1.isocalendar().week == date2.isocalendar().week
+
+    elif datetime_type == 'month':
+        return date1.month == date2.month
+
+    return False
