@@ -12,6 +12,7 @@ WAITING_FOR_HABIT_RESET_FREQ = InlineKeyboardMarkup([
     [
         InlineKeyboardButton('Day', callback_data='day'),
         InlineKeyboardButton('Week', callback_data='week'),
+        InlineKeyboardButton('Month', callback_data='month'),
     ],
 ])
 
