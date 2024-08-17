@@ -30,7 +30,7 @@ class HabitState(utils.DefaultState):
     def _need_to_reset(self):
         last_reset_timestamp = time_utils.get_beginning_of_day_timestamp(self.last_reset_timestamp)
         reset_freq_seconds = getattr(time_utils.ResetFreqs, self.reset_freq)
-        return last_reset_timestamp + reset_freq_seconds >= time_utils.get_current_timestamp()
+        return last_reset_timestamp + reset_freq_seconds <= time_utils.get_current_timestamp()
 
     def _reset_done_count(self):
         self.done_count = 0
