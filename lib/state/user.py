@@ -66,11 +66,13 @@ class UserState(utils.DefaultState):
                     logger.info(f'Removing habit with id {habit_id}')
                     self.habits.pop(habit_id, None)
 
-    async def get_habits(self, actual: bool=True):
+    async def get_habits(self, actual: bool=True, sort: bool=True):
         logger.info(f'Getting habits {actual = }')
         habits = self.habits.values()
         if actual:
             habits = list(filter(lambda habit: habit._is_actual(), habits))
+        if sort:
+            habits = sorted(habits, key=lambda habit: habit._get_sort_key())
         return habits
 
     async def reset_habits(self, force: bool=False):

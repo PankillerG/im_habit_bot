@@ -7,6 +7,12 @@ from lib.state import utils
 
 logger = logging.getLogger(__name__)
 
+reset_freq_to_id = {
+    'day': 0,
+    'week': 1,
+    'month': 2,
+}
+
 
 class HabitState(utils.DefaultState):
     def __init__(
@@ -40,6 +46,9 @@ class HabitState(utils.DefaultState):
 
     def _is_actual(self):
         return self.done_count < self.goal_count
+
+    def _get_sort_key(self):
+        return (reset_freq_to_id[self.reset_freq], self.name.lower())
 
     async def increase_done_count(self, count: int=1):
         async with self._lock:
