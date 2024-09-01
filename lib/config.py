@@ -16,3 +16,7 @@ class Jobs:
     class ResetUsersHabits:
         interval = 60
         first = 60
+
+
+AVAILABLE_HABITS_GOALS_COUNT = 31
+HABITS_GOALS_COUNT_PER_KEYBOARD_ROW = 5

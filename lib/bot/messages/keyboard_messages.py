@@ -1,3 +1,4 @@
+import itertools
 import typing
 
 from telegram import (
@@ -5,6 +6,7 @@ from telegram import (
     InlineKeyboardMarkup,
 )
 
+from lib import config
 from lib.state.habit import HabitState
 
 
@@ -18,15 +20,13 @@ WAITING_FOR_HABIT_RESET_FREQ = InlineKeyboardMarkup([
 
 WAITING_FOR_HABIT_GOAL_COUNT = InlineKeyboardMarkup([
     [
-        InlineKeyboardButton('1', callback_data='1'),
-        InlineKeyboardButton('2', callback_data='2'),
-        InlineKeyboardButton('3', callback_data='3'),
-    ],
-    [
-        InlineKeyboardButton('4', callback_data='4'),
-        InlineKeyboardButton('5', callback_data='5'),
-        InlineKeyboardButton('6', callback_data='6'),
-    ],
+        InlineKeyboardButton(f'{number}', callback_data=f'{number}')
+        for number in row_numbers
+    ]
+    for row_numbers in itertools.batched(
+        range(1, config.AVAILABLE_HABITS_GOALS_COUNT + 1),
+        config.HABITS_GOALS_COUNT_PER_KEYBOARD_ROW,
+    )
 ])
 
 
